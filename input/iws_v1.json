@@ -1,0 +1,45 @@
+{
+    "JobStreams": {
+        "js1": {
+            "schdedule": {},
+            "jobs": {
+                "job1": {
+                    "odi_object_name": "lp1"
+                },
+                "job2": {
+                    "preceded_by": "job1",
+                    "odi_object_name": "lp2"
+                },
+                "job3": {
+                    "preceded_by": "job2",
+                    "odi_object_name": "lp3"
+                }
+            }
+        },
+        "js2": {
+            "schdedule": {},
+            "preceded_by": "js1",
+            "jobs": {
+                "job4": {
+                    "odi_object_name": "lp4"
+                },
+                "job5": {
+                    "preceded_by": "job4",
+                    "odi_object_name": "lp5"
+                }
+            }
+        },
+        "js3": {
+            "schdedule": {},
+            "jobs": {
+                "job6": {
+                    "odi_object_name": "lp4"
+                },
+                "job7": {
+                    "preceded_by": "job4",
+                    "odi_object_name": "lp6"
+                }
+            }
+        }
+    }
+}
