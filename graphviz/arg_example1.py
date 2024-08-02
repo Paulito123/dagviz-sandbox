@@ -1,7 +1,7 @@
 import graphviz
 import json
 
-g = graphviz.Digraph('argenta1', filename='argenta1.gv')
+g = graphviz.Digraph('arg1', filename='arg1.gv')
 g.attr(compound='true', ranksep='1')
 
 with open('input/iws_v1.json') as f:
