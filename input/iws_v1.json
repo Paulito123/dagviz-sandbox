@@ -1,45 +1,87 @@
 {
-    "JobStreams": {
-        "js1": {
+    "job_streams": {
+        "jobStream_1": {
             "schdedule": {},
             "jobs": {
-                "job1": {
-                    "odi_object_name": "lp1"
-                },
+                "job1": {},
                 "job2": {
-                    "preceded_by": "job1",
-                    "odi_object_name": "lp2"
+                    "preceded_by": "job1"
                 },
                 "job3": {
-                    "preceded_by": "job2",
-                    "odi_object_name": "lp3"
+                    "preceded_by": "job2"
                 }
             }
         },
-        "js2": {
+        "jobStream_2": {
             "schdedule": {},
-            "preceded_by": "js1",
+            "preceded_by": "jobStream_1",
             "jobs": {
-                "job4": {
-                    "odi_object_name": "lp4"
-                },
+                "job4": {},
                 "job5": {
-                    "preceded_by": "job4",
-                    "odi_object_name": "lp5"
+                    "preceded_by": "job4"
                 }
             }
         },
-        "js3": {
+        "jobStream_3": {
             "schdedule": {},
             "jobs": {
-                "job6": {
-                    "odi_object_name": "lp4"
-                },
+                "job6": {},
                 "job7": {
-                    "preceded_by": "job4",
-                    "odi_object_name": "lp6"
+                    "preceded_by": "job6"
+                },
+                "job8": {}
+            }
+        },
+        "jobStream_4": {
+            "schdedule": {},
+            "jobs": {
+                "job9": {},
+                "job10": {
+                    "preceded_by": "job9"
                 }
             }
+        }
+    },
+    "jobs": {
+        "job1":{
+            "status": 2,
+            "odi_object_name": "LP_1"
+        },
+        "job2":{
+            "status": 2,
+            "odi_object_name": "LP_2"
+        },
+        "job3":{
+            "status": 2,
+            "odi_object_name": "LP_3"
+        },
+        "job4":{
+            "status": 2,
+            "odi_object_name": "LP_4"
+        },
+        "job5":{
+            "status": 2,
+            "odi_object_name": "LP_5"
+        },
+        "job6":{
+            "status": 3,
+            "odi_object_name": "LP_6"
+        },
+        "job7":{
+            "status": 0,
+            "odi_object_name": "LP_7"
+        },
+        "job8":{
+            "status": 1,
+            "odi_object_name": "LP_8"
+        },
+        "job9":{
+            "status": 2,
+            "odi_object_name": "LP_9"
+        },
+        "job10":{
+            "status": 1,
+            "odi_object_name": "LP_10"
         }
     }
 }

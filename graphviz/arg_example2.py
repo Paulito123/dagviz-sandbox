@@ -6,6 +6,19 @@ import json
 g = graphviz.Digraph('arg1', filename='arg1.gv')
 g.attr(compound='true', ranksep='1')
 
+
+def vertaal_kleur(status_code):
+    if status_code == 0:
+        kleur = 'grey'
+    elif status_code == 1:
+        kleur = 'orange'
+    elif status_code == 2:
+        kleur = 'green'
+    else:
+        kleur = 'red'
+    return kleur
+
+
 with open('input/iws_v1.json') as f:
     data = json.load(f)
 
@@ -19,27 +32,36 @@ with open('input/iws_v1.json') as f:
                 if 'jobs' in data['job_streams'][stream_key]:
                     edges = []
                     for job_key in data['job_streams'][stream_key]['jobs'].keys():
-                        c.node(job_key, nohtml(f'<f0> |<f1> {job_key}|<f2>'))
+                        
+                        status_code = -1
+                        kleur = 'grey'
+                        odi_object_name = 'UNKNOWN'
+                        if 'jobs' in data and job_key in data['jobs']:
+                            if 'status' in data['jobs'][job_key]:
+                                status_code = data['jobs'][job_key]['status']
+                                kleur = vertaal_kleur(status_code)
+                            if 'odi_object_name' in data['jobs'][job_key]:
+                                odi_object_name = data['jobs'][job_key]['odi_object_name']
+                        
+                        c.node(f'struct_{job_key}', '''<
+                            <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+                                <TR>
+                                    <TD bgcolor="''' + kleur + '''" PORT="f0">''' + job_key + '''</TD>
+                                </TR>
+                                <TR>
+                                    <TD PORT="f1">''' + odi_object_name + '''</TD>
+                                </TR>
+                            </TABLE>>''')
+                        
                         if 'preceded_by' in data['job_streams'][stream_key]['jobs'][job_key]:
-                            edge = (data['job_streams'][stream_key]['jobs'][job_key]['preceded_by'], job_key)
+                            edge = (f"struct_{data['job_streams'][stream_key]['jobs'][job_key]['preceded_by']}", f'struct_{job_key}')
                             edges.append(edge)
-                        # if 'status' in data['job_streams'][stream_key]['jobs'][job_key]:
-                        #     status = data['job_streams'][stream_key]['jobs'][job_key]['status']
-                        #     if status == 0:
-                        #         kleur = 'grey'
-                        #     elif status == 1:
-                        #         kleur = 'orange'
-                        #     elif status == 2:
-                        #         kleur = 'green'
-                        #     else:
-                        #         kleur = 'red'
-                        #     c.node_attr.update(f'{job_key}:f0', color=kleur)
 
                     c.edges(edges)
 
 # g.edge('cluster_jobStream_1', 'cluster_jobStream_2')
-g.edge('job3', 'job4', ltail='cluster_jobStream_1', lhead='cluster_jobStream_2')
-g.edge('job5', 'job6', ltail='cluster_jobStream_2', lhead='cluster_jobStream_3')
+# g.edge('struct_job3', 'struct_job4', ltail='cluster_jobStream_1', lhead='cluster_jobStream_2')
+g.edge('struct_job5', 'struct_job6', ltail='cluster_jobStream_2', lhead='cluster_jobStream_3')
 
 g.view()
         
